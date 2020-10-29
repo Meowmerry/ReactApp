@@ -1,44 +1,40 @@
+
 import React, { Component } from 'react';
-import  {Button} from './Button';
+import { Button } from './Button';
 
 export default class Random extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      color: [153, 191, 200]
+      color: [153, 100, 255]
     }
   }
   componentDidMount() {
     this.applyColor();
   }
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(preProps, prevState) {
     this.applyColor();
   }
-
   formatColor(ary) {
     return 'rgb(' + ary.join(', ') + ')';
   }
-
   isLight() {
     const rgb = this.state.color;
-    return rgb.reduce((a,b) => a+b) < 127 * 3;
+    return rgb.reduce((a, b) => a + b) < 127 * 3
   }
-
   applyColor() {
-    const color = this.formatColor(this.state.color);
+    const color = this.formatColor(this.state.color)
     document.body.style.background = color;
   }
-
   chooseColor() {
     const random = [];
     for (let i = 0; i < 3; i++) {
-      random.push(Math.floor(Math.random()*256));
+      random.push(Math.floor(Math.random() * 256));
     }
     return random;
   }
-  handleClick = () =>{
-    this.setState({ 
+  handleClick = () => {
+    this.setState({
       color: this.chooseColor()
     })
   }
@@ -46,15 +42,10 @@ export default class Random extends Component {
   render() {
     return (
       <div>
-        <Button 
-        light={this.isLight()} 
-        onClick={this.handleClick}/>
+        <Button onClick={this.handleClick} />
         <h1 className={this.isLight() ? 'white' : 'black'}>
-        Yout color is {this.formatColor(this.state.color)}!
-        </h1>
-      
+          Your color is {this.formatColor(this.state.color)}</h1>
       </div>
-    );
+    )
   }
 }
-
